@@ -1,0 +1,134 @@
+we used NavLink seperately for each (Navbar.jsx) becuase we have used 
+Routes and provided path, if we wont have used Routes then we can just use NavLink once, 
+place all navbar linking elements in that and provided 'to' in each link
+(check Edusity project)
+that 'to' would contain the id of that particular component where we want to navigate 
+{or unique className}
+
+
+Link is for basic navigation, while NavLink is for navigation with active link styling.
+
+w-2/4 or w-1/2 means the width is half of the parent container.
+
+
+whenever a particular navlink is clicked , it automatically adds 'active' in that component. 
+(a:active hr)
+
+flex flex-col sm:grid grid-cols-[3fr_1fr_1fr]
+this means that in phone it will be flex col (in col) and when in sm or more it will be grid 
+
+Meaning 
+<div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
+
+group-hover:block: This utility makes the element visible when its parent has the group class and is hovered. By default, it’s hidden, 
+so it remains hidden until the parent element with group is hovered.
+hidden: Ensures that the dropdown is initially not visible.
+absolute: The dropdown is positioned absolutely relative to its nearest positioned ancestor (such as a parent with relative positioning).
+dropdown-menu: A custom class likely used for styling or targeting, but it doesn't have any specific meaning in Tailwind by default.
+
+
+leading utility is used to control the line height of text.
+
+
+aspect-square makes sure the element is a square (width = height).
+rounded-full ensures the square becomes a circle by applying a full border-radius.
+
+
+sm:hidden: This class hides an element starting from the sm breakpoint (which is 640px and above). This means 
+the element will be hidden on screens larger than or equal to 640px.
+
+
+text-base means normal size (16px)
+
+
+scale-100: 100% — No scaling, the element remains at its normal size.
+scale-110: 110% — The element will be scaled up to 110% of its original size
+
+
+(map , filter expecilly)
+With parentheses (): JSX is returned implicitly, no need for return.
+With curly braces {}: You need to explicitly use return
+
+
+sort() is in-place: It sorts the array in place, meaning it modifies the original array
+
+The sort() function accepts a comparison function with two parameters, often called a and b. These represent two elements in the array that are being compared during the sorting process. The comparison function should return:
+
+A negative number if a should come before b.
+A positive number if a should come after b.
+0 if a and b are equal (they stay in the same order).
+
+
+useParams allows you to access dynamic parameters from the current route. This is useful for routes with dynamic segments, such as /:id in the path.
+import { useParams } from 'react-router-dom';
+
+const Product = () => {
+  const { productId } = useParams();  // Get the value of the 'productId' parameter
+
+  return <div>Product ID: {productId}</div>;
+};
+
+// In your routes:
+<!-- <Route path="/product/:productId" element={<Product />} /> -->
+
+useLocation To get information about the current URL (e.g., to determine the current page).
+const location = useLocation();
+
+console.log(location.pathname); // Get the current path
+
+
+
+const {productId}= useParams();
+const {products}= useContext(ShopContext);
+const [productData, setproductData]= useState(false);
+const fetchProductData= async()=>{
+  products.find((item)=>{
+    if(item._id===productId){
+      setproductData(item)
+ 
+    }
+  })  
+}
+--- we could initialise productData as empty but its not  a good practice for array containing objects.
+---  The **use of `async`** is to allow non-blocking, asynchronous execution of code, enabling tasks like data fetching or time-consuming operations to run in the background without freezing the rest of the program. 
+
+
+:active is used like onClick , if we use onClick for styling then we have to define a state variable initialised as false, when clicked it should turn true and then a dynamic class, when stateVariable is true then apply this style.
+if we durectly use    active:bg-gray-700    then we dont need to do all that.
+
+When to use key in React (Summary Points):
+Rendering Lists: When rendering a list of elements using .map() or any other loop.
+Dynamic Components: When conditionally rendering multiple components (e.g., if/else or switch).
+Reordering or Removing Items: When the list or its items can change order or be removed dynamically.
+When Child Elements are Generated Dynamically: For arrays of child elements or multiple components created dynamically.
+
+
+ If cartData[itemId] does not exist yet (i.e., the product has not been added to the cart), trying to access cartData[itemId][size] directly would cause an error because cartData[itemId] would be undefined at that point.
+
+
+
+cartItems = {
+  'itemId1': { 'M': 1, 'L': 1 }
+}
+cartItems[items] --- itemId1, itemid2 etc
+cartItems[items][item] --- M, L etc
+cartItems[items][item] >0 then totalCount+=cartItems[items][item]
+
+
+Use `item.size` instead of `productData.size` because `item.size` refers to the specific size of the product added to the cart, whereas `productData.size` refers to the available sizes for the product itself (which might be an array of sizes). The `item.size` contains the selected size for that particular cart item.
+
+
+
+useNavigate hook;
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const MyComponent = () => {
+  const navigate = useNavigate();
+
+  return (
+    <button onClick={() => navigate('/newpage')}>Go to New Page</button>
+  );
+};
+
+export default MyComponent;
